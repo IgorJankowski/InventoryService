@@ -9,6 +9,8 @@
         public decimal Price { get; private set; }
         public DateTime CreatedAt { get; private set; }
         public DateTime UpdatedAt { get; private set; }
+        public Guid CategoryId { get; private set; }
+        public Category Category { get; private set; }
 
         public Item(string name, decimal price, int quantity, string? description = null)
         {
