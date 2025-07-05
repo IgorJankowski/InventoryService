@@ -1,3 +1,9 @@
+using InventoryService.Application.Interfaces.repo;
+using InventoryService.Application.Interfaces.Services;
+using InventoryService.Infrastructure.Persistence;
+using InventoryService.Infrastructure.Repositories;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -6,6 +12,13 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddDbContext<InventoryDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("InventoryDb")));
+
+builder.Services.AddScoped<IItemRepository, ItemRepository>();
+
+builder.Services.AddScoped<IInventoryService, InventoryService.Application.Services.InventoryService>();
 
 var app = builder.Build();
 

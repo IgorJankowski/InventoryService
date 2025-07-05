@@ -1,6 +1,6 @@
-﻿namespace InventoryService.Application.Interfaces;
+﻿namespace InventoryService.Application.Interfaces.repo;
 
-public class ICategoryRepository
+public interface IItemRepository
 {
     //Task<Item?> GetByIdAsync(Guid id);
     //Task<List<Item>> GetAllAsync();

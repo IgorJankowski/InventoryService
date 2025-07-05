@@ -12,7 +12,7 @@
         public Guid CategoryId { get; private set; }
         public Category Category { get; private set; }
 
-        public Item(string name, decimal price, int quantity, string? description = null)
+        public Item(string name, decimal price, int quantity, Guid categoryId, string? description = null)
         {
             if (string.IsNullOrWhiteSpace(name))
                 throw new ArgumentException("Name cannot be empty.", nameof(name));
@@ -26,6 +26,7 @@
             Price = price;
             Quantity = quantity;
             Description = description;
+            CategoryId = categoryId;
             CreatedAt = DateTime.UtcNow;
             UpdatedAt = DateTime.UtcNow;
         }
