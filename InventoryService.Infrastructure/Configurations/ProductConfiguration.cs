@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace InventoryService.Infrastructure.Persistence.Configurations;
 
-public class ItemConfiguration : IEntityTypeConfiguration<Item>
+public class ProductConfiguration : IEntityTypeConfiguration<Product>
 {
-    public void Configure(EntityTypeBuilder<Item> builder)
+    public void Configure(EntityTypeBuilder<Product> builder)
     {
         builder.HasKey(x => x.Id);
 
@@ -16,8 +16,9 @@ public class ItemConfiguration : IEntityTypeConfiguration<Item>
         builder.Property(x => x.Quantity).IsRequired();
 
         builder.HasOne(x => x.Category)
-            .WithMany()
+            .WithMany(c => c.Products)
             .HasForeignKey(x => x.CategoryId)
+            .IsRequired(false)
             .OnDelete(DeleteBehavior.Cascade);
     }
 }

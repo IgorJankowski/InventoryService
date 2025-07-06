@@ -6,17 +6,17 @@ namespace InventoryService.Application.Services;
 
 public class InventoryService : IInventoryService
 {
-    private readonly IItemRepository itemRepository;
+    private readonly IProductRepository ProductRepository;
 
-    public InventoryService(IItemRepository itemRepository)
+    public InventoryService(IProductRepository ProductRepository)
     {
-        this.itemRepository = itemRepository;
+        this.ProductRepository = ProductRepository;
     }
 
-    public async Task<Guid> CreateItemAsync(string name, decimal price, int quantity, Guid categoryId, string? description = null)
+    public async Task<Guid> CreateProductAsync(string name, decimal price, int quantity, Guid? categoryId = null, string? description = null)
     {
-        var item = new Item(name, price, quantity, categoryId, description);
-        //await itemRepository.AddAsync(item);
-        return item.Id;
+        var Product = new Product(name, price, quantity, categoryId, description);
+        await ProductRepository.AddAsync(Product);
+        return Product.Id;
     }
 }

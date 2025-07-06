@@ -16,20 +16,27 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<InventoryDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("InventoryDb")));
 
-builder.Services.AddScoped<IItemRepository, ItemRepository>();
-
 builder.Services.AddScoped<IInventoryService, InventoryService.Application.Services.InventoryService>();
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowFrontend",
+        builder => builder
+            .WithOrigins("http://localhost:5173")  // <- ustaw origin frontendu
+            .AllowAnyMethod()
+            .AllowAnyHeader()
+    );
+});
 
 var app = builder.Build();
-
+app.UseCors("AllowFrontend");
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
-app.UseHttpsRedirection();
 
 app.UseAuthorization();
 

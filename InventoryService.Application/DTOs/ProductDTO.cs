@@ -1,6 +1,6 @@
 ﻿namespace InventoryService.Application.DTOs;
 
-public record ItemDto(
+public record ProductDto(
     Guid Id,
     string Name,
     decimal Price,

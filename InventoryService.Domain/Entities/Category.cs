@@ -6,7 +6,7 @@ public class Category
     public string? Description { get; private set; }
     public DateTime CreatedAt { get; private set; }
     public DateTime UpdatedAt { get; private set; }
-    public ICollection<Item> Items { get; private set; } = new List<Item>();
+    public ICollection<Product> Products { get; private set; } = new List<Product>();
 
     public Category(string name, string? description = null)
     {

@@ -7,7 +7,7 @@ public class InventoryDbContext : DbContext
 {
     public InventoryDbContext(DbContextOptions<InventoryDbContext> options) : base(options) { }
 
-    public DbSet<Item> Items => Set<Item>();
+    public DbSet<Product> Products => Set<Product>();
     public DbSet<Category> Categories => Set<Category>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)

@@ -1,6 +1,6 @@
 ﻿namespace InventoryService.Domain.Entities
 {
-    public class Item
+    public class Product
     {
         public Guid Id { get; private set; }
         public string Name { get; private set; }
@@ -9,10 +9,12 @@
         public decimal Price { get; private set; }
         public DateTime CreatedAt { get; private set; }
         public DateTime UpdatedAt { get; private set; }
-        public Guid CategoryId { get; private set; }
-        public Category Category { get; private set; }
+        public Guid? CategoryId { get; private set; }
+        public virtual Category Category { get; private set; }
 
-        public Item(string name, decimal price, int quantity, Guid categoryId, string? description = null)
+        private Product() { }
+
+        public Product(string name, decimal price, int quantity, Guid? categoryId = null, string? description = null)
         {
             if (string.IsNullOrWhiteSpace(name))
                 throw new ArgumentException("Name cannot be empty.", nameof(name));
@@ -52,6 +54,29 @@
         public void UpdateDescription(string? newDescription)
         {
             Description = newDescription;
+            UpdatedAt = DateTime.UtcNow;
+        }
+
+        public void Rename(string newName)
+        {
+            if (string.IsNullOrWhiteSpace(newName))
+                throw new ArgumentException("Name cannot be empty.", nameof(newName));
+
+            Name = newName;
+            UpdatedAt = DateTime.UtcNow;
+        }
+        public void AddStock(int amount)
+        {
+            if (amount <= 0) throw new ArgumentException("Amount must be positive.");
+            Quantity += amount;
+            UpdatedAt = DateTime.UtcNow;
+        }
+
+        public void RemoveStock(int amount)
+        {
+            if (amount <= 0) throw new ArgumentException("Amount must be positive.");
+            if (Quantity - amount < 0) throw new InvalidOperationException("Insufficient stock.");
+            Quantity -= amount;
             UpdatedAt = DateTime.UtcNow;
         }
     }
