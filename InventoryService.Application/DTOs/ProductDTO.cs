@@ -6,5 +6,5 @@ public record ProductDto(
     decimal Price,
     int Quantity,
     string? Description,
-    Guid CategoryId
+    Guid? CategoryId
 );

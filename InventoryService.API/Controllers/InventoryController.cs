@@ -17,12 +17,6 @@ namespace InventoryService.API.Controllers
             _inventoryService = inventoryService;
         }
 
-        [HttpGet("test")]
-        public IActionResult Test()
-        {
-            return Ok("Inventory test działa!");
-        }
-
         [HttpPost("add")]
         public async Task<IActionResult> AddProduct([FromBody] AddProductRecord request)
         {
@@ -39,6 +33,13 @@ namespace InventoryService.API.Controllers
                 Message = "Product added",
                 Product = request
             });
+        }
+
+        [HttpGet("list")]
+        public async Task<IActionResult> GetAllProducts()
+        {
+            var products = await _inventoryService.GetAllProductsAsync();
+            return Ok(products);
         }
     }
 }
