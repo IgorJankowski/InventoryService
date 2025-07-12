@@ -21,7 +21,7 @@ public class InventoryService : IInventoryService
         return Product.Id;
     }
 
-    public async Task<IEnumerable<ProductDto>> GetAllProductsAsync()
+    public async Task<List<ProductDto>> GetAllProductsAsync()
     {
         var products = await ProductRepository.GetAllAsync();
         var productDtos = products.Select(p => new ProductDto(

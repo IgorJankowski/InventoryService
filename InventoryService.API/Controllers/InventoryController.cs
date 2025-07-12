@@ -22,7 +22,6 @@ namespace InventoryService.API.Controllers
         {
             await _inventoryService.CreateProductAsync(
                 request.ProductName,
-                0,
                 request.Quantity,
                 null,
                 request.Description
@@ -35,7 +34,7 @@ namespace InventoryService.API.Controllers
             });
         }
 
-        [HttpGet("list")]
+        [HttpGet("list-products")]
         public async Task<IActionResult> GetAllProducts()
         {
             var products = await _inventoryService.GetAllProductsAsync();
