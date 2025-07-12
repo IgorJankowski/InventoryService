@@ -14,9 +14,9 @@ public class InventoryService : IInventoryService
         this.ProductRepository = ProductRepository;
     }
 
-    public async Task<Guid> CreateProductAsync(string name, decimal price, int quantity, Guid? categoryId = null, string? description = null)
+    public async Task<Guid> CreateProductAsync(string name, int quantity, Guid? categoryId = null, string? description = null)
     {
-        var Product = new Product(name, price, quantity, categoryId, description);
+        var Product = new Product(name, quantity, categoryId, description);
         await ProductRepository.AddAsync(Product);
         return Product.Id;
     }
@@ -27,7 +27,6 @@ public class InventoryService : IInventoryService
         var productDtos = products.Select(p => new ProductDto(
             p.Id,
             p.Name,
-            p.Price,
             p.Quantity,
             p.Description,
             p.CategoryId
